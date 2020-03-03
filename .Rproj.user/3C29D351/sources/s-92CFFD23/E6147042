@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1583270116602.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E6147042",
+    "lastKnownWriteTime" : 1583270106,
+    "last_content_update" : 1583270106,
+    "path" : "~/Animaciones/animated_bar_plot_in_R.R",
+    "project_path" : "animated_bar_plot_in_R.R",
+    "properties" : {
+        "cursorPosition" : "59,0",
+        "scrollLine" : "44"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
