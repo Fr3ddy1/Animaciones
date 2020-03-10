@@ -1,9 +1,12 @@
+#CARGO LIBRERIAS
 library(tidyverse)
 library(gganimate)
+library(av)
 
+#CARGO DATA A USAR
 gdp_tidy <- read_csv("./data/gdp_tidy.csv")
 
-
+#PROCESO DATA
 gdp_formatted <- gdp_tidy %>%
   group_by(year) %>%
   # The * 1 makes it possible to have non-integer ranks while sliding
@@ -14,9 +17,7 @@ gdp_formatted <- gdp_tidy %>%
   filter(rank <=10) %>%
   ungroup()
 
-# Animation
-
-
+#CREO ANIMACION
 anim <- ggplot(gdp_formatted, aes(rank, group = country_name, 
                 fill = as.factor(country_name), color = as.factor(country_name))) +
   geom_tile(aes(y = value/2,
@@ -52,16 +53,21 @@ anim <- ggplot(gdp_formatted, aes(rank, group = country_name,
        subtitle  =  "Top 10 Countries",
        caption  = "GDP in Billions USD | Data Source: World Bank Data") 
 
-# For GIF
-
-animate(anim, 200, fps = 20,  width = 1200, height = 1000, 
+#EXPORTO GIF
+animate(anim, 100, fps = 20,  width = 1200, height = 1000, 
         renderer = gifski_renderer("gganim.gif")) 
 
-# For MP4
+#EXPORTO A VIDEO CON FORMATO MP4
+for_mp4 <- animate(anim, 200, fps = 20,  width = 1200, height = 1000)
 
-# for_mp4 <- animate(anim, 200, fps = 20,  width = 1200, height = 1000, 
-#         renderer = ffmpeg_renderer()) 
- for_mp4 <- animate(anim, 200, fps = 20,  width = 1200, height = 1000)
+#animate(anim, 100, fps = 20,duration = 30, width = 1200, height = 1000,
+#        renderer=ffmpeg_renderer())
 
+# Video output
+a <- animate(
+  anim + enter_fade() + exit_fly(y_loc = 1),
+  renderer = av_renderer()
+)
 
-anim_save("animation1.mp4", animation = for_mp4 )
+#GUARDO VIDEO
+anim_save("animation1.mp4", animation = a )
