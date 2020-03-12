@@ -13,6 +13,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Data a usar
 
+La data con la que se va a trabajar es "gdp_tidy.csv". La misma nos muestra información sobre el producto interno bruto (GDP) para los años 1990, 2000, y del 2009 al 2017, de 217 paises, esta data fué obtenida gracias al Banco Mundial (incluir enlace). La misma cuenta con las siguientes columnas,
+
+* **country_name**: esta columna contiene el nombre del pais.
+
+* **country_code**: esta variable contiene la abreviatura del pais. 
+
+* **year**: esta columna contiene el año del GDP para cada pais. Posee información para los años 1990, 2000, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016 y 2017.
+
+* **value**: estava variable contiene el valor del GPD expresado en billones de dólares.
+
+Para empezar el estudio se cargarán las librerias necesarias para el mismo,
+
+* tidiverse: librería que contiene funciones que ayudan al procesamiento y agrupación de datos.
+
+* gganimate: librería que permite la creación de GIFs.
+
+* av: librería que permite la exportación de la animación creada a un video.
+
+Un vistazo a la data se presenta a continuación,
+
 ```{r}
 #CARGO LIBRERIAS
 library(tidyverse)
@@ -26,6 +46,24 @@ head(gdp_tidy)
 
 
 ```
+
+Una vez cargada la data, se procede a darle formato esto con el fin de agrupar a los diez primeros paises y crear un ranking por año, es importante crear esta estructura pues la misma será la base de la animación a crear. El proceso a seguir es el siguiente,
+
+1) Agrupar la data por año: para esta tarea la función que nos ayudará será "group_by", a la misma se le debe pasar como argumento de la variable a considerar en este caso "year".
+
+2) Agregar una variable "ranking": para este paso se usará la función "mutate", la cual permite agregar columnas a un dataframe, en total se agregarán tres columnas, las cuales serán obtenidas a partir de las columnas originales. 
+
+* rank: representa un ranking por cada año para todos los paises que estén en la base de datos.
+
+* value_rel: representa el porcentaje que representa el valor del GDP con relación al primer clasificado de un año en específico.
+
+* value_lbl: representa el valor de GPD expresado en billones.
+
+3) Agrupar por pais: en este paso se vuelve a usar la función "group_by" con el fin de agrupar las observaciones por paises.
+
+4) Filtrar primeros 10 paises: finalmente se usa la función "filter" para filtrar las observaciones y quedarnos con sólo aquellas que estén en el top diez.
+
+Un vistazo a la data se presenta a continuación,
 
 
 
@@ -94,7 +132,38 @@ anim <- ggplot(gdp_formatted, aes(rank, group = country_name,
 ### Exportación a GIF
 
 ```{r}
+anim1 <- ggplot(gdp_formatted[which(gdp_formatted$year=="1990"),], aes(rank, group = country_name, 
+                fill = as.factor(country_name), color = as.factor(country_name))) +
+  geom_tile(aes(y = value/2,
+                height = value,
+                width = 0.9), alpha = 0.8, color = NA) +
+  geom_text(aes(y = 0, label = paste(country_name, " ")), vjust = 0.2, hjust = 1) +
+  geom_text(aes(y=value,label = Value_lbl, hjust=0)) +
+  coord_flip(clip = "off", expand = FALSE) +
+  scale_y_continuous(labels = scales::comma) +
+  scale_x_reverse() +
+  guides(color = FALSE, fill = FALSE) +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+         axis.title.y=element_blank(),
+        legend.position="none",
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        panel.grid.major.x = element_line( size=.1, color="grey" ),
+        panel.grid.minor.x = element_line( size=.1, color="grey" ),
+        plot.title=element_text(size=25, hjust=0.5, face="bold", colour="grey", vjust=-1),
+        plot.subtitle=element_text(size=18, hjust=0.5, face="italic", color="grey"),
+        plot.caption =element_text(size=8, hjust=0.5, face="italic", color="grey"),
+        plot.background=element_blank(),
+       plot.margin = margin(2,2, 2, 4, "cm"))
 
+
+anim1
 ```
 
 
