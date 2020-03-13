@@ -11,6 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## GIFS en R
 
+Actualmente El formato GIF (graphics interchange format) es muy utilizado en el despliegue de imágenes animadas para páginas web, lo cual hace atractivo y llamativo al mensaje que se quiera transmitir. Existen en la web diversas alternativas para la creación de estos archivos, sin embargo en este caso nos centraremos en el uso del software estadístico R para la creación de GIF, para tal fin se usará el paquete gganimate. En el siguiente artículo se hablará sobre la creación de la data para el Gif así como de los diversos argumentos que se deben tener en cuenta al momento de crear este tipo de archivos.
+
 ## Data a usar
 
 La data con la que se va a trabajar es "gdp_tidy.csv". La misma nos muestra información sobre el producto interno bruto (GDP) para los años 1990, 2000, y del 2009 al 2017, de 217 paises, esta data fué obtenida gracias al Banco Mundial (incluir enlace). La misma cuenta con las siguientes columnas,
@@ -85,9 +87,9 @@ head(gdp_formatted)
 
 ## Paquete gganimate
 
+El paquete gganimate es una extensión del paquete ggplot2 diseñado para crear gráficos de ggplot animados. De esta forma podemos ver de forma dinámica en un mismo gráfico, por ejemplo, cómo la información ha ido evolucionando con el paso de los años.
 
-
-### Función animate
+Con el fin de crear la animación, primero se va a crear el gráfico base usando la función "ggplot", donde usamos la data que hemos procesado. 
 
 
 ```{r}
@@ -128,8 +130,18 @@ anim <- ggplot(gdp_formatted, aes(rank, group = country_name,
        caption  = "GDP in Billions USD | Data Source: World Bank Data") 
 ```
 
+### Función animate
 
-### Exportación a GIF
+Una vez creado el objeto "anim" usaremos la función "animate", la cual nos va a permitir crear el GIF, los principales argumentos de la misma son,
+
+* **plot**: objeto a ser animado, puede ser un objeto obtenido mediante la función "ggplot".
+* **nframes**: número de marcos a renderizar, por defecto el valor es 100. Mientras más g rande sea este valor, la animación se hará más larga.
+* **fps**: velocidad de fotogramas de la animación en fotogramas / seg.
+* **width**: ancho de la animación resultante.
+* **height**: alto de la animación resultante.
+* **renderer**: función utilizada para representar los cuadros generados en una animación.
+
+El top diez de paises para el año 1990, se presenta a continuación,
 
 ```{r}
 anim1 <- ggplot(gdp_formatted[which(gdp_formatted$year=="1990"),], aes(rank, group = country_name, 
@@ -166,11 +178,33 @@ anim1 <- ggplot(gdp_formatted[which(gdp_formatted$year=="1990"),], aes(rank, gro
 anim1
 ```
 
+### Exportación a GIF
+
+El siguiente comando va a permitir la creación del GIF. El mismo se puede apreciar en el siguiente enlace.
+
+```{r}
+#animate(anim, 100, fps = 20,  width = 1200, height = 1000, 
+#        renderer = gifski_renderer("gganim.gif")) 
+```
 
 
 ### Exportación a video
 
+Con la ayuda del paquete av, el siguiente comando nos va a permitir generar un video en formato mp4. El mismo se puede descargar aquí.
 
+```{r}
+# Video output
+# a <- animate(
+#   anim + enter_fade() + exit_fly(y_loc = 1),
+#   renderer = av_renderer()
+# )
+# 
+# #GUARDO VIDEO
+# anim_save("animation1.mp4", animation = a )
+```
+
+
+De esta manera se ha generado un archivo GIf la cual es una manera alternativa y muy interesante de presentar información, ya que se cuenta con la característica de la animación lo cual hace atractivo a la vista.
 
 
 
