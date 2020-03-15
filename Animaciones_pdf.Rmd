@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## \textcolor{blue}{GIFS en R}
 
-Actualmente El formato GIF (graphics interchange format) es muy utilizado en el despliegue de imágenes animadas para páginas web, lo cual hace atractivo y llamativo al mensaje que se quiera transmitir. Existen en la web diversas alternativas para la creación de estos archivos, sin embargo en este caso nos centraremos en el uso del software estadístico R para la creación de GIF, para tal fin se usará el paquete gganimate. En el siguiente artículo se hablará sobre la estructuraque debe tener la data para la creación de GIFs, así como de los diversos argumentos que se deben tener en cuenta al momento de usar las funciones de R para crear este tipo de archivos.
+Actualmente El formato GIF (graphics interchange format) es muy utilizado en el despliegue de imágenes animadas para páginas web, lo cual hace atractivo y llamativo al mensaje que se quiera transmitir. Existen en la web diversas alternativas para la creación de estos archivos, sin embargo en este caso nos centraremos en el uso del software estadístico R para la creación de GIF, para tal fin se usará el paquete gganimate. En el siguiente artículo se hablará sobre la estructura que debe tener la data para la creación de GIFs, así como de los diversos argumentos que se deben tener en cuenta al momento de usar las funciones de R para crear este tipo de archivos.
 
 ## \textcolor{blue}{Data a usar}
 
