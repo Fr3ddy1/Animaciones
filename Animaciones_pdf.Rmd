@@ -1,7 +1,5 @@
 ---
 title: "Animaciones en R"
-author: "Freddy F. Tapia C."
-date: "10/3/2020"
 output: pdf_document
 ---
 
@@ -9,13 +7,13 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## GIFS en R
+## \textcolor{blue}{GIFS en R}
 
-Actualmente El formato GIF (graphics interchange format) es muy utilizado en el despliegue de imágenes animadas para páginas web, lo cual hace atractivo y llamativo al mensaje que se quiera transmitir. Existen en la web diversas alternativas para la creación de estos archivos, sin embargo en este caso nos centraremos en el uso del software estadístico R para la creación de GIF, para tal fin se usará el paquete gganimate. En el siguiente artículo se hablará sobre la creación de la data para el Gif así como de los diversos argumentos que se deben tener en cuenta al momento de crear este tipo de archivos.
+Actualmente El formato GIF (graphics interchange format) es muy utilizado en el despliegue de imágenes animadas para páginas web, lo cual hace atractivo y llamativo al mensaje que se quiera transmitir. Existen en la web diversas alternativas para la creación de estos archivos, sin embargo en este caso nos centraremos en el uso del software estadístico R para la creación de GIF, para tal fin se usará el paquete gganimate. En el siguiente artículo se hablará sobre la estructuraque debe tener la data para la creación de GIFs, así como de los diversos argumentos que se deben tener en cuenta al momento de usar las funciones de R para crear este tipo de archivos.
 
-## Data a usar
+## \textcolor{blue}{Data a usar}
 
-La data con la que se va a trabajar es "gdp_tidy.csv". La misma nos muestra información sobre el producto interno bruto (GDP) para los años 1990, 2000, y del 2009 al 2017, de 217 paises, esta data fué obtenida gracias al Banco Mundial (incluir enlace). La misma cuenta con las siguientes columnas,
+La data con la que se va a trabajar es "gdp_tidy.csv". La misma nos muestra información sobre el producto interno bruto (GDP) para los años 1990, 2000, y del 2009 al 2017, de 217 paises, esta data fué obtenida de la página del al Banco Mundial. La misma cuenta con las siguientes columnas,
 
 * **country_name**: esta columna contiene el nombre del pais.
 
@@ -51,7 +49,7 @@ head(gdp_tidy)
 
 Una vez cargada la data, se procede a darle formato esto con el fin de agrupar a los diez primeros paises y crear un ranking por año, es importante crear esta estructura pues la misma será la base de la animación a crear. El proceso a seguir es el siguiente,
 
-1) Agrupar la data por año: para esta tarea la función que nos ayudará será "group_by", a la misma se le debe pasar como argumento de la variable a considerar en este caso "year".
+1) Agrupar la data por año: para esta tarea la función que nos ayudará será "group_by", a la misma se le debe pasar como argumento la variable a considerar, en este caso "year".
 
 2) Agregar una variable "ranking": para este paso se usará la función "mutate", la cual permite agregar columnas a un dataframe, en total se agregarán tres columnas, las cuales serán obtenidas a partir de las columnas originales. 
 
@@ -85,7 +83,7 @@ head(gdp_formatted)
 ```
 
 
-## Paquete gganimate
+## \textcolor{blue}{Paquete gganimate}
 
 El paquete gganimate es una extensión del paquete ggplot2 diseñado para crear gráficos de ggplot animados. De esta forma podemos ver de forma dinámica en un mismo gráfico, por ejemplo, cómo la información ha ido evolucionando con el paso de los años.
 
@@ -130,12 +128,12 @@ anim <- ggplot(gdp_formatted, aes(rank, group = country_name,
        caption  = "GDP in Billions USD | Data Source: World Bank Data") 
 ```
 
-### Función animate
+### \textcolor{blue}{Función animate}
 
 Una vez creado el objeto "anim" usaremos la función "animate", la cual nos va a permitir crear el GIF, los principales argumentos de la misma son,
 
 * **plot**: objeto a ser animado, puede ser un objeto obtenido mediante la función "ggplot".
-* **nframes**: número de marcos a renderizar, por defecto el valor es 100. Mientras más g rande sea este valor, la animación se hará más larga.
+* **nframes**: número de marcos a renderizar, por defecto el valor es 100. Mientras más grande sea este valor, la animación se hará más larga.
 * **fps**: velocidad de fotogramas de la animación en fotogramas / seg.
 * **width**: ancho de la animación resultante.
 * **height**: alto de la animación resultante.
@@ -178,9 +176,11 @@ anim1 <- ggplot(gdp_formatted[which(gdp_formatted$year=="1990"),], aes(rank, gro
 anim1
 ```
 
-### Exportación a GIF
+### \textcolor{blue}{Exportación a formatoGIF}
 
-El siguiente comando va a permitir la creación del GIF. El mismo se puede apreciar en el siguiente enlace.
+El siguiente comando va a permitir la creación del GIF. El mismo se puede apreciar en el siguiente 
+[\textcolor{blue}{enlace}](https://github.com/Fr3ddy1/Animaciones/blob/master/gganim.gif).
+
 
 ```{r}
 #animate(anim, 100, fps = 20,  width = 1200, height = 1000, 
@@ -188,9 +188,10 @@ El siguiente comando va a permitir la creación del GIF. El mismo se puede aprec
 ```
 
 
-### Exportación a video
+### \textcolor{blue}{Exportación a video}
 
-Con la ayuda del paquete av, el siguiente comando nos va a permitir generar un video en formato mp4. El mismo se puede descargar aquí.
+Con la ayuda del paquete av, el siguiente comando nos va a permitir generar un video en formato mp4. El mismo se puede descargar 
+[\textcolor{blue}{aquí}](https://github.com/Fr3ddy1/Animaciones/blob/master/animation.mp4?raw=true).
 
 ```{r}
 # Video output
@@ -204,7 +205,7 @@ Con la ayuda del paquete av, el siguiente comando nos va a permitir generar un v
 ```
 
 
-De esta manera se ha generado un archivo GIf la cual es una manera alternativa y muy interesante de presentar información, ya que se cuenta con la característica de la animación lo cual hace atractivo a la vista.
+De esta manera se ha generado un archivo GIF la cual es una manera alternativa y muy interesante de presentar información, ya que se cuenta con la característica de la animación lo cual lo hace atractivo a la vista. Para mayor comodidad los archivos necesarios para generar el GIF se encuentran en mi repositorio, para acceder haga click [\textcolor{blue}{aquí}](https://github.com/Fr3ddy1/Animaciones).
 
 
 

@@ -70,4 +70,4 @@ a <- animate(
 )
 
 #GUARDO VIDEO
-anim_save("animation1.mp4", animation = a )
+anim_save("animation.mp4", animation = a )
